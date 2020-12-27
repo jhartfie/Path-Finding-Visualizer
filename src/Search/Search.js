@@ -1,12 +1,9 @@
 import React from 'react';
-import './App.css';
-import Cell, { CELL_WIDTH } from './Cell';
-import { NavigationBar, NAVAGATION_BAR_HEIGHT } from './NavigationBar';
+import '../App.css';
+import Cell from './Cell';
+import { NavigationBar } from './NavigationBar';
 import { hashCoord } from './GridHelperFunctions';
-import { breadthFirstSearch } from './SearchAlgorithms';
-
-export const CELLS_PER_ROW = 50;
-export const CELLS_PER_COL = 50;
+import { CELLS_PER_COL, CELLS_PER_ROW, CELL_WIDTH, NAVIGATION_BAR_HEIGHT } from './Constants';
 
 class Search extends React.Component {
 
@@ -45,7 +42,7 @@ class Search extends React.Component {
       for(let j =0; j < CELLS_PER_COL; ++j) {
         initial_cells.push({
           xCoord: 50*i,
-          yCoord: 50*j + NAVAGATION_BAR_HEIGHT,
+          yCoord: 50*j + NAVIGATION_BAR_HEIGHT,
         })
       }
     }
@@ -71,7 +68,6 @@ class Search extends React.Component {
 
   //renders a Navigation bar and a grid of cells.
   render() {
-    console.log("main render called")
     const grid = []
     let grid_map = {} //this is used for bfs/dfs/search algorithms
     let i = 0
@@ -89,8 +85,8 @@ class Search extends React.Component {
     this.state.grid_map_to_pass_down.refs = this.state.grid_map
 
     return (
-      <div style={{ height: '2600px' }}>
-        <NavigationBar  grid_map={this.state.grid_map_to_pass_down} nodePressed={ this.state.nodePressed } endPoints={this.state.endPointsForSearch}/>
+      <div style={{ height: (CELLS_PER_COL*CELL_WIDTH + NAVIGATION_BAR_HEIGHT) }}>
+        <NavigationBar  grid_map={this.state.grid_map_to_pass_down} nodePressed={ this.state.nodePressed } endPoints={this.state.endPointsForSearch} change_screen={() => this.props.change_screen()}/>
         <div className="App" onMouseDown={() => { this.state.isMouseDown.mouseDown = true }} onMouseUp={() => { this.state.isMouseDown.mouseDown = false }} endPoints={this.state.endPointsForSearch}>
           {grid}
         </div>

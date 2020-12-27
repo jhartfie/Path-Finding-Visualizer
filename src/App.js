@@ -1,11 +1,8 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import Search from './Search'
-import Sort from './Sort';
-import Cell, { CELL_WIDTH } from './Cell';
-import { NavigationBar, NAVAGATION_BAR_HEIGHT } from './NavigationBar';
-import { hashCoord } from './GridHelperFunctions';
-import { breadthFirstSearch } from './SearchAlgorithms';
+import Search from './Search/Search';
+import Sort from './Sort/Sort';
 
 export const CELLS_PER_ROW = 50;
 export const CELLS_PER_COL = 50;
@@ -30,8 +27,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        {(this.state.screen === "search") ? <Search/> : <Sort/>}
-        <button onClick={() => this.changeScreen()}>Click me to change screen</button>
+        {(this.state.screen === "search") ? <Search change_screen={() => this.changeScreen() }/> : <Sort change_screen={() => this.changeScreen() }/>}
       </div>
     );
   }
